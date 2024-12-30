@@ -5,21 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure;
 
-namespace Application.Handlers
+namespace Application.Handlers.FileHandler
 {
-    public class HelpCommandHandler : ICommandHandler
+    public class UploadPowerPointCommandHandler : ICommandHandler
     {
         private readonly TelegramBotClientWrapper _botClient;
 
-        public HelpCommandHandler(TelegramBotClientWrapper botClient)
+        public UploadPowerPointCommandHandler(TelegramBotClientWrapper botClient)
         {
             _botClient = botClient;
         }
 
         public async Task HandleAsync(string chatId)
         {
-            await _botClient.SendMessageAsync(chatId, "To Get Information about bot :\n/info");
-            await _botClient.SendMessageAsync(chatId, "To start contact with admns :\n/admins");
+            await _botClient.SendMessageAsync(chatId, "Please upload a PowerPoint file.");
         }
     }
 }

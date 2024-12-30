@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Infrastructure;
+﻿using Infrastructure;
 
 namespace Application.Handlers
 {
@@ -21,9 +16,9 @@ namespace Application.Handlers
             var botInfo = "🤖 *Bot haqida ma'lumot:*\n\n" +
                           "- Bot: Bu botda siz File tashlay olasiz.\n" +
                           "- Xizmatlar:File lar bilan ishlash.\n" +
-                          "- Ishlab chiquvchi: Uzakov.S.\n" +
+                          "- Creator: Uzakov.S.\n" +
                           "- Versiya: 1.0.0\n\n" +
-                          "Savollar uchun admin bilan bog'laning.";
+                          "Savollar uchun admin bilan bog'laning : @uzakovv_1.";
 
             await _botClient.SendMessageAsync(chatId, botInfo, null);
         }
