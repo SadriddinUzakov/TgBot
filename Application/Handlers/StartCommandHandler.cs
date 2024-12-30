@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Infrastructure;
+﻿using Infrastructure;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Application.Handlers
@@ -25,6 +20,12 @@ namespace Application.Handlers
                 {
                     InlineKeyboardButton.WithCallbackData("Help", "/help"),
                     InlineKeyboardButton.WithCallbackData("More Info", "/info")
+                },
+                new[]
+                {
+                    InlineKeyboardButton.WithCallbackData("Upload Word", "/upload_word"),
+                    InlineKeyboardButton.WithCallbackData("Upload Excel", "/upload_excel"),
+                    InlineKeyboardButton.WithCallbackData("Upload PowerPoint", "/upload_powerpoint")
                 }
             });
 

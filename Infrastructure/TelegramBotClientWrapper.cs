@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -35,6 +30,21 @@ namespace Infrastructure
         public async Task SendMessageAsync(string chatId, string message, InlineKeyboardMarkup? buttons = null)
         {
             await _client.SendTextMessageAsync(chatId, message, replyMarkup: buttons);
+        }
+
+        public async Task SetCommandsAsync()
+        {
+            var commands = new[]
+            {
+                new BotCommand { Command = "/start", Description = "Start bot" },
+                new BotCommand { Command = "/help", Description = "Help information" },
+                new BotCommand { Command = "/info", Description = "Information about the bot" },
+                new BotCommand { Command = "/upload_word", Description = "Upload Word file" },
+                new BotCommand { Command = "/upload_excel", Description = "Upload Excel file" },
+                new BotCommand { Command = "/upload_powerpoint", Description = "Upload PowerPoint file" }
+            };
+
+            await _client.SetMyCommandsAsync(commands);
         }
     }
 }
