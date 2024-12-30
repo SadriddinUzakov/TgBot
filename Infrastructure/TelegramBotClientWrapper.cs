@@ -33,7 +33,7 @@ namespace Infrastructure
         }
 
         public async Task SetCommandsAsync()
-        {
+        {   
             var commands = new[]
             {
                 new BotCommand { Command = "/start", Description = "Start bot" },
