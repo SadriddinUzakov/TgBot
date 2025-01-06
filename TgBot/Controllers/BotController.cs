@@ -18,7 +18,6 @@ namespace TgBot.Controllers
                 { "/start", new StartCommandHandler(_botClient) },
                 { "/help", new HelpCommandHandler(_botClient) },
                 { "/info", new InfoCommandHandler(_botClient) }
-                
             };
         }
 

@@ -13,10 +13,15 @@ namespace Application.Handlers
 
         public async Task HandleAsync(string chatId)
         {
-            var botInfo = "🤖 *Bot haqida ma'lumot:*\n\n" +
-                          "Ру: Отслеживайте свой бизнес на каждом этапе и сделайте его успешном вместе с DT Ecosystem\n" +
-                          "- O‘z: Har bir bosqichda biznesingizni kuzatib boring va uni DT Ecosystem bilan birgalikda muvaffaqiyatli qiling\n" +
-                          "- En: Track your business at every stage and make it successful together with DT Ecosystem\n";
+            var botInfo = "🤖 Salom!\n\n" +
+                          "Bizning Botga xush kelibsiz!\n" +
+                          "Xizmat ko'rsatish tilini tanlang:\n\n" +
+                          "🤖 Здравствуйте!\n\n" +
+                          "Добро пожаловать в нашего бота!\n" +
+                          "Выберите язык обслуживания:\n\n" +
+                          "🤖 Hello!\n\n" +
+                          "Welcome to our bot!\n" +
+                          "Choose the service language:\n";
 
             await _botClient.SendMessageAsync(chatId, botInfo, null);
         }

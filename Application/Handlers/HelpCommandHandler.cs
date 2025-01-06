@@ -18,8 +18,8 @@ namespace Application.Handlers
 
         public async Task HandleAsync(string chatId)
         {
-            await _botClient.SendMessageAsync(chatId, "To Get Information about bot :\n/info");
-            await _botClient.SendMessageAsync(chatId, "To start contact with admns :\n/admins");
+            await _botClient.SendMessageAsync(chatId, "To Get Information about bot :\n/info"+
+                "To start contact with admins:\n/admins");
         }
     }
 }
