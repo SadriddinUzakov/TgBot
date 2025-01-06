@@ -14,11 +14,9 @@ namespace Application.Handlers
         public async Task HandleAsync(string chatId)
         {
             var botInfo = "🤖 *Bot haqida ma'lumot:*\n\n" +
-                          "- Bot: Bu botda siz File tashlay olasiz.\n" +
-                          "- Xizmatlar:File lar bilan ishlash.\n" +
-                          "- Creator: Uzakov.S.\n" +
-                          "- Versiya: 1.0.0\n\n" +
-                          "Savollar uchun admin bilan bog'laning : @uzakovv_1.";
+                          "Ру: Отслеживайте свой бизнес на каждом этапе и сделайте его успешном вместе с DT Ecosystem\n" +
+                          "- O‘z: Har bir bosqichda biznesingizni kuzatib boring va uni DT Ecosystem bilan birgalikda muvaffaqiyatli qiling\n" +
+                          "- En: Track your business at every stage and make it successful together with DT Ecosystem\n";
 
             await _botClient.SendMessageAsync(chatId, botInfo, null);
         }

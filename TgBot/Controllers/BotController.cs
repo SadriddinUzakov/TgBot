@@ -1,5 +1,4 @@
 ﻿using Application.Handlers;
-using Application.Handlers.FileHandler;
 using Infrastructure;
 
 namespace TgBot.Controllers
@@ -18,10 +17,8 @@ namespace TgBot.Controllers
             {
                 { "/start", new StartCommandHandler(_botClient) },
                 { "/help", new HelpCommandHandler(_botClient) },
-                { "/info", new InfoCommandHandler(_botClient) },
-                { "/upload_word", new UploadWordCommandHandler(_botClient) },
-                { "/upload_excel", new UploadExcelCommandHandler(_botClient) },
-                { "/upload_powerpoint", new UploadPowerPointCommandHandler(_botClient) }
+                { "/info", new InfoCommandHandler(_botClient) }
+                
             };
         }
 

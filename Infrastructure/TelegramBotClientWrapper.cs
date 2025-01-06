@@ -39,7 +39,7 @@ namespace Infrastructure
                 new BotCommand { Command = "/start", Description = "Start bot" },
                 new BotCommand { Command = "/help", Description = "Help information" },
                 new BotCommand { Command = "/info", Description = "Information about the bot" },
-                new BotCommand { Command = "/upload_word", Description = "Upload Word file" },
+                new BotCommand { Command = "/language", Description = "Choose the language" },
                 new BotCommand { Command = "/upload_excel", Description = "Upload Excel file" },
                 new BotCommand { Command = "/upload_powerpoint", Description = "Upload PowerPoint file" }
             };
