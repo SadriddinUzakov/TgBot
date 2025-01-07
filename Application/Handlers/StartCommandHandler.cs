@@ -14,16 +14,30 @@ namespace Application.Handlers
 
         public async Task HandleAsync(string chatId)
         {
-            var buttons = new InlineKeyboardMarkup(new[]
+            // Xush kelibsiz matni
+            var botInfo = "🤖 Salom!\n\n" +
+                          "Bizning Botga xush kelibsiz!\n" +
+                          "Xizmat ko'rsatish tilini tanlang:\n\n" +
+                          "🤖 Здравствуйте!\n\n" +
+                          "Добро пожаловать в нашего бота!\n" +
+                          "Выберите язык обслуживания:\n\n" +
+                          "🤖 Hello!\n\n" +
+                          "Welcome to our bot!\n" +
+                          "Choose the service language:\n";
+
+            await _botClient.SendMessageAsync(chatId, botInfo);
+
+            // ReplyKeyboardMarkup tugmalari
+            var buttons = new ReplyKeyboardMarkup(new[]
             {
-                new[]
-                {
-                    InlineKeyboardButton.WithCallbackData("🇺🇿 O‘zbek", "lang_uz"),
-                    InlineKeyboardButton.WithCallbackData("🇷🇺 Русский", "lang_ru"),
-                    InlineKeyboardButton.WithCallbackData("🇬🇧 English", "lang_en")
-                }
-            });
-            await _botClient.SendMessageAsync(chatId, "Welcome! Choose an option below:", buttons);
+                new KeyboardButton[] { "🇺🇿 O‘zbek", "🇷🇺 Русский", "🇬🇧 English" }
+            })
+            {
+                ResizeKeyboard = true, // Tugmalar ekranga mos ravishda kichrayadi
+                OneTimeKeyboard = true // Tugmalar bir marta ko'rinadi
+            };
+
+            await _botClient.SendMessageAsync(chatId, "Choose your preferred language below:", replyMarkup: buttons);
         }
     }
 }

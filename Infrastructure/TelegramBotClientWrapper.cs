@@ -27,13 +27,13 @@ namespace Infrastructure
             }
         }
 
-        public async Task SendMessageAsync(string chatId, string message, InlineKeyboardMarkup? buttons = null)
+        public async Task SendMessageAsync(string chatId, string message, IReplyMarkup? replyMarkup = null)
         {
-            await _client.SendTextMessageAsync(chatId, message, replyMarkup: buttons);
+            await _client.SendTextMessageAsync(chatId, message, replyMarkup: replyMarkup);
         }
 
         public async Task SetCommandsAsync()
-        {   
+        {
             var commands = new[]
             {
                 new BotCommand { Command = "/start", Description = "Start bot" },
