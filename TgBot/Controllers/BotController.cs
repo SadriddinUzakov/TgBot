@@ -33,15 +33,16 @@ namespace TgBot.Controllers
                     var chatId = update.Message.Chat.Id.ToString();
                     var message = update.Message.Text;
 
-                    if (_commandHandlers.ContainsKey(message))
+                    if (message != null && _commandHandlers.ContainsKey(message))
                     {
                         await _commandHandlers[message].HandleAsync(chatId);
                     }
                     else
                     {
-                        await _botClient.SendMessageAsync(chatId, "Unknown command. Use /help for a list of commands.");
+                        await _botClient.SendMessageAsync(chatId, "Unknown command or message is empty. Use /help for a list of commands.");
                     }
                 }
+
                 else if (update.CallbackQuery is not null)
                 {
                     var chatId = update.CallbackQuery.Message.Chat.Id.ToString();
