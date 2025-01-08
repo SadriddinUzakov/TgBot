@@ -12,9 +12,8 @@ namespace Application.Handlers
             _botClient = botClient;
         }
 
-        public async Task HandleAsync(string chatId)
+        public async Task HandleAsync(string chatId, string userMessage)
         {
-            // Xush kelibsiz matni
             var botInfo = "🤖 Salom!\n\n" +
                           "Bizning Botga xush kelibsiz!\n" +
                           "Xizmat ko'rsatish tilini tanlang:\n\n" +
@@ -27,14 +26,13 @@ namespace Application.Handlers
 
             await _botClient.SendMessageAsync(chatId, botInfo);
 
-            // ReplyKeyboardMarkup tugmalari
             var buttons = new ReplyKeyboardMarkup(new[]
             {
                 new KeyboardButton[] { "🇺🇿 O‘zbek", "🇷🇺 Русский", "🇬🇧 English" }
             })
             {
-                ResizeKeyboard = true, // Tugmalar ekranga mos ravishda kichrayadi
-                OneTimeKeyboard = true // Tugmalar bir marta ko'rinadi
+                ResizeKeyboard = true,
+                OneTimeKeyboard = true
             };
 
             await _botClient.SendMessageAsync(chatId, "Choose your preferred language below:", replyMarkup: buttons);

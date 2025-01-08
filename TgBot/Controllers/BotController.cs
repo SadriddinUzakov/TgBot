@@ -14,11 +14,12 @@ namespace TgBot.Controllers
 
             // Buyruqlarni ro'yxatdan o'tkazish
             _commandHandlers = new Dictionary<string, ICommandHandler>
-            {
-                { "/start", new StartCommandHandler(_botClient) },
-                { "/help", new HelpCommandHandler(_botClient) },
-                { "/info", new InfoCommandHandler(_botClient) }
-            };
+                {
+                    { "/start", new StartCommandHandler(_botClient) },
+                    { "/help", new HelpCommandHandler(_botClient) },
+                    { "/info", new InfoCommandHandler(_botClient) },
+                    { "/language", new LanguageCommandHandler(_botClient) }
+                };
         }
 
         public async Task RunAsync()
@@ -35,7 +36,7 @@ namespace TgBot.Controllers
 
                     if (message != null && _commandHandlers.ContainsKey(message))
                     {
-                        await _commandHandlers[message].HandleAsync(chatId);
+                        await _commandHandlers[message].HandleAsync(chatId, message);
                     }
                     else
                     {
@@ -50,7 +51,7 @@ namespace TgBot.Controllers
 
                     if (_commandHandlers.ContainsKey(callbackData))
                     {
-                        await _commandHandlers[callbackData].HandleAsync(chatId);
+                        await _commandHandlers[callbackData].HandleAsync(chatId, callbackData);
                     }
                 }
             });
