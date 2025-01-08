@@ -1,5 +1,4 @@
 ﻿using Application.Handlers;
-using Application.Handlers.FileHandler;
 using Infrastructure;
 
 namespace TgBot.Controllers
@@ -15,14 +14,12 @@ namespace TgBot.Controllers
 
             // Buyruqlarni ro'yxatdan o'tkazish
             _commandHandlers = new Dictionary<string, ICommandHandler>
-            {
-                { "/start", new StartCommandHandler(_botClient) },
-                { "/help", new HelpCommandHandler(_botClient) },
-                { "/info", new InfoCommandHandler(_botClient) },
-                { "/upload_word", new UploadWordCommandHandler(_botClient) },
-                { "/upload_excel", new UploadExcelCommandHandler(_botClient) },
-                { "/upload_powerpoint", new UploadPowerPointCommandHandler(_botClient) }
-            };
+                {
+                    { "/start", new StartCommandHandler(_botClient) },
+                    { "/help", new HelpCommandHandler(_botClient) },
+                    { "/info", new InfoCommandHandler(_botClient) },
+                    { "/language", new LanguageCommandHandler(_botClient) }
+                };
         }
 
         public async Task RunAsync()
@@ -37,15 +34,16 @@ namespace TgBot.Controllers
                     var chatId = update.Message.Chat.Id.ToString();
                     var message = update.Message.Text;
 
-                    if (_commandHandlers.ContainsKey(message))
+                    if (message != null && _commandHandlers.ContainsKey(message))
                     {
-                        await _commandHandlers[message].HandleAsync(chatId);
+                        await _commandHandlers[message].HandleAsync(chatId, message);
                     }
                     else
                     {
-                        await _botClient.SendMessageAsync(chatId, "Unknown command. Use /help for a list of commands.");
+                        await _botClient.SendMessageAsync(chatId, "Unknown command or message is empty. Use /help for a list of commands.");
                     }
                 }
+
                 else if (update.CallbackQuery is not null)
                 {
                     var chatId = update.CallbackQuery.Message.Chat.Id.ToString();
@@ -53,7 +51,7 @@ namespace TgBot.Controllers
 
                     if (_commandHandlers.ContainsKey(callbackData))
                     {
-                        await _commandHandlers[callbackData].HandleAsync(chatId);
+                        await _commandHandlers[callbackData].HandleAsync(chatId, callbackData);
                     }
                 }
             });

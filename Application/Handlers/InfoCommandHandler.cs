@@ -11,14 +11,17 @@ namespace Application.Handlers
             _botClient = botClient;
         }
 
-        public async Task HandleAsync(string chatId)
+        public async Task HandleAsync(string chatId, string userMessage)    
         {
-            var botInfo = "🤖 *Bot haqida ma'lumot:*\n\n" +
-                          "- Bot: Bu botda siz File tashlay olasiz.\n" +
-                          "- Xizmatlar:File lar bilan ishlash.\n" +
-                          "- Creator: Uzakov.S.\n" +
-                          "- Versiya: 1.0.0\n\n" +
-                          "Savollar uchun admin bilan bog'laning : @uzakovv_1.";
+            var botInfo = "🤖 Salom!\n\n" +
+                          "Bizning Botga xush kelibsiz!\n" +
+                          "Xizmat ko'rsatish tilini tanlang:\n\n" +
+                          "🤖 Здравствуйте!\n\n" +
+                          "Добро пожаловать в нашего бота!\n" +
+                          "Выберите язык обслуживания:\n\n" +
+                          "🤖 Hello!\n\n" +
+                          "Welcome to our bot!\n" +
+                          "Choose the service language:\n";
 
             await _botClient.SendMessageAsync(chatId, botInfo, null);
         }

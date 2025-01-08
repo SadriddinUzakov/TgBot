@@ -16,10 +16,12 @@ namespace Application.Handlers
             _botClient = botClient;
         }
 
-        public async Task HandleAsync(string chatId)
+        public async Task HandleAsync(string chatId, string userMessage)
         {
-            await _botClient.SendMessageAsync(chatId, "To Get Information about bot :\n/info");
-            await _botClient.SendMessageAsync(chatId, "To start contact with admns :\n/admins");
+            var helpMessage = "To Get Information about bot:\n/info" +
+                "\nTo start contact with admins:\n/admins" +
+                "\nTo change language:\n/language";
+            await _botClient.SendMessageAsync(chatId, helpMessage);
         }
     }
 }

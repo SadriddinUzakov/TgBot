@@ -12,24 +12,30 @@ namespace Application.Handlers
             _botClient = botClient;
         }
 
-        public async Task HandleAsync(string chatId)
+        public async Task HandleAsync(string chatId, string userMessage)
         {
-            var buttons = new InlineKeyboardMarkup(new[]
-            {
-                new[]
-                {
-                    InlineKeyboardButton.WithCallbackData("Help", "/help"),
-                    InlineKeyboardButton.WithCallbackData("More Info", "/info")
-                },
-                new[]
-                {
-                    InlineKeyboardButton.WithCallbackData("Upload Word", "/upload_word"),
-                    InlineKeyboardButton.WithCallbackData("Upload Excel", "/upload_excel"),
-                    InlineKeyboardButton.WithCallbackData("Upload PowerPoint", "/upload_powerpoint")
-                }
-            });
+            var botInfo = "🤖 Salom!\n\n" +
+                          "Bizning Botga xush kelibsiz!\n" +
+                          "Xizmat ko'rsatish tilini tanlang:\n\n" +
+                          "🤖 Здравствуйте!\n\n" +
+                          "Добро пожаловать в нашего бота!\n" +
+                          "Выберите язык обслуживания:\n\n" +
+                          "🤖 Hello!\n\n" +
+                          "Welcome to our bot!\n" +
+                          "Choose the service language:\n";
 
-            await _botClient.SendMessageAsync(chatId, "Welcome! Choose an option below:", buttons);
+            await _botClient.SendMessageAsync(chatId, botInfo);
+
+            var buttons = new ReplyKeyboardMarkup(new[]
+            {
+                new KeyboardButton[] { "🇺🇿 O‘zbek", "🇷🇺 Русский", "🇬🇧 English" }
+            })
+            {
+                ResizeKeyboard = true,
+                OneTimeKeyboard = true
+            };
+
+            await _botClient.SendMessageAsync(chatId, "Choose your preferred language below:", replyMarkup: buttons);
         }
     }
 }
