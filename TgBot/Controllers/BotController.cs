@@ -14,17 +14,16 @@ namespace TgBot.Controllers
 
             // Buyruqlarni ro'yxatdan o'tkazish
             _commandHandlers = new Dictionary<string, ICommandHandler>
-                {
-                    { "/start", new StartCommandHandler(_botClient) },
-                    { "/help", new HelpCommandHandler(_botClient) },
-                    { "/info", new InfoCommandHandler(_botClient) },
-                    { "/language", new LanguageCommandHandler(_botClient) }
-                };
+            {
+                { "/start", new StartCommandHandler(_botClient) },
+                { "/help", new HelpCommandHandler(_botClient) },
+                { "/info", new InfoCommandHandler(_botClient) },
+                { "/language", new LanguageCommandHandler(_botClient) }
+            };
         }
 
         public async Task RunAsync()
         {
-            // Menyuni o'rnatish
             await _botClient.SetCommandsAsync();
 
             await _botClient.ListenUpdatesAsync(async update =>
@@ -36,22 +35,31 @@ namespace TgBot.Controllers
 
                     if (message != null && _commandHandlers.ContainsKey(message))
                     {
+                        // Handle commands like /start, /help, etc.
                         await _commandHandlers[message].HandleAsync(chatId, message);
                     }
-                    else
+                    else if (update.Message.Contact != null)
                     {
-                        await _botClient.SendMessageAsync(chatId, "Unknown command or message is empty. Use /help for a list of commands.");
+                        // Save the contact number
+                        var contactHandler = new ContactCommandHandler(_botClient);
+                        await contactHandler.HandleContactAsync(update.Message);
                     }
-                }
-
-                else if (update.CallbackQuery is not null)
-                {
-                    var chatId = update.CallbackQuery.Message.Chat.Id.ToString();
-                    var callbackData = update.CallbackQuery.Data;
-
-                    if (_commandHandlers.ContainsKey(callbackData))
+                    else if (update.Message.Text != null)
                     {
-                        await _commandHandlers[callbackData].HandleAsync(chatId, callbackData);
+                        // If the message is not a command, check if it's a language choice
+                        var languageHandler = new LanguageCommandHandler(_botClient);
+                        var selectedLanguage = update.Message.Text;
+
+                        if (selectedLanguage == "🇺🇿 O‘zbek" || selectedLanguage == "🇷🇺 Русский" || selectedLanguage == "🇬🇧 English")
+                        {
+                            // Save the selected language and send a confirmation
+                            await languageHandler.SetUserLanguageAsync(chatId, selectedLanguage);
+                        }
+                        else
+                        {
+                            // Default unknown command
+                            await _botClient.SendMessageAsync(chatId, "Noma'lum buyruq. Iltimos, /language komandasini tanlang.");
+                        }
                     }
                 }
             });
