@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler
     {
-        Task HandleAsync(string chatId,string userMessage);
+        Task HandleAsync(string chatId, string userMessage);
     }
 }

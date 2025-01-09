@@ -11,7 +11,7 @@ namespace Application.Handlers
             _botClient = botClient;
         }
 
-        public async Task HandleAsync(string chatId, string userMessage)    
+        public async Task HandleAsync(string chatId, string userMessage)
         {
             var botInfo = "🤖 Salom!\n\n" +
                           "Bizning Botga xush kelibsiz!\n" +
