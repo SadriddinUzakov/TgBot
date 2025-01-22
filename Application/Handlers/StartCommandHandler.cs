@@ -25,17 +25,6 @@ namespace Application.Handlers
                           "Choose the service language:\n";
 
             await _botClient.SendMessageAsync(chatId, botInfo);
-
-            var buttons = new ReplyKeyboardMarkup(new[]
-            {
-                new KeyboardButton[] { "🇺🇿 O‘zbek", "🇷🇺 Русский", "🇬🇧 English" }
-            })
-            {
-                ResizeKeyboard = true,
-                OneTimeKeyboard = true
-            };
-
-            await _botClient.SendMessageAsync(chatId, "Choose your preferred language below:", replyMarkup: buttons);
         }
     }
 }

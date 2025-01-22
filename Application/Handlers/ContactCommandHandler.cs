@@ -1,6 +1,5 @@
 ﻿using Infrastructure;
 using Npgsql;
-using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -32,23 +31,32 @@ namespace Application.Handlers
         public async Task HandleContactAsync(Message message)
         {
             var phoneNumber = message.Contact.PhoneNumber;
-            await SavePhoneNumberToDatabase(phoneNumber);
 
-            await _botClient.SendMessageAsync(message.Chat.Id.ToString(), "Raqamingiz muvaffaqiyatli saqlandi.");
+            if (await IsUserRegisteredOnSite(phoneNumber))
+            {
+                await _botClient.SendMessageAsync(message.Chat.Id.ToString(), "Raqamingiz botda muvaffaqiyatli tasdiqlandi va foydalanishingiz mumkin.");
+            }
+            else
+            {
+                string registrationLink = "https://id.dt.uz/register"; // Registreation from site
+                await _botClient.SendMessageAsync(message.Chat.Id.ToString(),
+                    $"Siz bizning saytdan ro'yxatdan o'tmagansiz. Iltimos, quyidagi havola orqali ro'yxatdan o'ting: {registrationLink}");
+            }
         }
 
-        private async Task SavePhoneNumberToDatabase(string phoneNumber)
+        private async Task<bool> IsUserRegisteredOnSite(string phoneNumber)
         {
-            var connectionString = "Host=localhost;Username=postgres;Password=ssss1111;Database=tg_bot";
+            var connectionString = "Host=192.168.100.232;Port=5432;Username=postgres;Password=vs658hi2jsVjDf57;Database=dt_xabar";
 
             await using (var conn = new NpgsqlConnection(connectionString))
             {
                 await conn.OpenAsync();
 
-                using (var cmd = new NpgsqlCommand("INSERT INTO users (phone_number) VALUES (@p)", conn))
+                using (var cmd = new NpgsqlCommand("SELECT COUNT(*) FROM users WHERE phone_number = @p", conn))
                 {
                     cmd.Parameters.AddWithValue("p", phoneNumber);
-                    await cmd.ExecuteNonQueryAsync();
+                    var count = (long)await cmd.ExecuteScalarAsync();
+                    return count > 0;
                 }
             }
         }

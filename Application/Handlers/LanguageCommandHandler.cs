@@ -1,5 +1,6 @@
 ﻿using Application.Handlers;
 using Domain.Lang;
+using Domain.Lang.uz;
 using Infrastructure;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -24,7 +25,7 @@ public class LanguageCommandHandler : ICommandHandler
             OneTimeKeyboard = true
         };
 
-        await _botClient.SendMessageAsync(chatId, Messages.SELECT_LANGUAGE_UZB, replyMarkup: buttons);
+        await _botClient.SendMessageAsync(chatId, Messages.SELECT_LANGUAGE, replyMarkup: buttons);
     }
 
     public async Task SetUserLanguageAsync(string chatId, string language)
@@ -33,10 +34,10 @@ public class LanguageCommandHandler : ICommandHandler
 
         string responseMessage = language switch
         {
-            "🇺🇿 O‘zbek" => Messages.LANGUAGE_CHANGED_UZB,
-            "🇷🇺 Русский" => Messages.LANGUAGE_CHANGED_RUS,
-            "🇬🇧 English" => Messages.LANGUAGE_CHANGED_ENG,
-            _ => Messages.LANGUAGE_CHANGED_ENG, // Default to English
+            "🇺🇿 O‘zbek" => Messages.LANGUAGE_CHANGED,
+            "🇷🇺 Русский" => Messages.LANGUAGE_CHANGED,
+            "🇬🇧 English" => Messages.LANGUAGE_CHANGED,
+            _ => Messages.LANGUAGE_CHANGED, // Default to English
         };
 
         await _botClient.SendMessageAsync(chatId, responseMessage);
@@ -49,10 +50,10 @@ public class LanguageCommandHandler : ICommandHandler
     {
         string contactMessage = language switch
         {
-            "🇺🇿 O‘zbek" => Messages.SEND_CONTACT_MESSAGE_UZB,
-            "🇷🇺 Русский" => Messages.SEND_CONTACT_MESSAGE_RUS,
-            "🇬🇧 English" => Messages.SEND_CONTACT_MESSAGE_ENG,
-            _ => Messages.SEND_CONTACT_MESSAGE_ENG, // Default to English
+            "🇺🇿 O‘zbek" => Messages.SEND_CONTACT_MESSAGE,
+            "🇷🇺 Русский" => Messages.SEND_CONTACT_MESSAGE,
+            "🇬🇧 English" => Messages.SEND_CONTACT_MESSAGE,
+            _ => Messages.SEND_CONTACT_MESSAGE, // Default to English
         };
 
         var contactButton = new KeyboardButton(Messages.SEND_CONTACT)
